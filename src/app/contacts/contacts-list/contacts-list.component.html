@@ -1,0 +1,8 @@
+<button><a routerLink="/add">Add</a></button>
+<ul>
+  <li *ngFor="let contact of contacts; trackBy: contactTrackBy">
+    <a routerLink="/detail/{{ contact.id }}"
+      >{{ contact.name }} - {{ contact.phoneNo }}</a
+    >
+  </li>
+</ul>

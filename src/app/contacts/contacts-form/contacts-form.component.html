@@ -1,0 +1,8 @@
+<h1>{{ heading }}</h1>
+<form [formGroup]="contactsForm" (ngSubmit)="onSubmit()">
+  <label id="name"></label>
+  <input for="name" type="text" formControlName="name" /><br />
+  <label id="phoneNo"></label>
+  <input for="phoneNo" type="number" formControlName="phoneNo" /><br />
+  <button type="submit">Save</button>
+</form>
