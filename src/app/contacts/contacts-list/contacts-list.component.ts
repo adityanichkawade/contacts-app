@@ -11,10 +11,18 @@ export class ContactsListComponent implements OnInit {
   constructor(private contactsService: ContactsService) {}
 
   ngOnInit() {
-    this.contacts = this.contactsService.getAll();
+    this.contactsService
+      .getAll()
+      .subscribe((contacts: Contacts[]) => (this.contacts = contacts));
   }
 
   contactTrackBy(index: number, contact: Contacts): number {
     return contact.id;
+  }
+
+  onDelete(id: number) {
+    this.contactsService.delete(id).subscribe((contact: Contacts) => {
+      this.contacts = this.contacts.filter((item: Contacts) => item.id !== id);
+    });
   }
 }

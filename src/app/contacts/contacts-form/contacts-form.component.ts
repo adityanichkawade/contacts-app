@@ -28,14 +28,19 @@ export class ContactsFormComponent implements OnInit {
       }
     });
 
-    const contact = this.contactsFormService.getContact();
-    if (contact) {
-      this.contactId = contact.id;
-      this.contactsForm.patchValue({
-        name: contact.name,
-        phoneNo: contact.phoneNo,
+    this.contactsFormService
+      .getContact()
+      .subscribe((contact: Contacts | undefined) => {
+        if (contact) {
+          if (contact) {
+            this.contactId = contact.id;
+            this.contactsForm.patchValue({
+              name: contact.name,
+              phoneNo: contact.phoneNo,
+            });
+          }
+        }
       });
-    }
   }
 
   onSubmit() {

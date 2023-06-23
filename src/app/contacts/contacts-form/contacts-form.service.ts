@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactsService } from '../contacts.service';
 import { Contacts } from '../contacts.model';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ContactsFormService {
@@ -15,16 +16,14 @@ export class ContactsFormService {
     return this.activatedRoute.data;
   }
 
-  getContact() {
+  getContact(): Observable<Contacts> {
     const contactId = this.activatedRoute.snapshot.paramMap.get('id');
-    if (contactId) {
-      return this.contactsService.get(Number(contactId));
-    }
-    return null;
+    return this.contactsService.get(Number(contactId));
   }
 
   save(contact: Contacts) {
-    this.contactsService.save(contact);
-    this.router.navigateByUrl('/');
+    this.contactsService.save(contact).subscribe((contact: Contacts) => {
+      this.router.navigateByUrl('/');
+    });
   }
 }

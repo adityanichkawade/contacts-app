@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactsService } from '../contacts.service';
 import { Contacts } from '../contacts.model';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ContactsDetailService {
@@ -11,10 +12,9 @@ export class ContactsDetailService {
     private contactsService: ContactsService
   ) {}
 
-  getContact(): Contacts | undefined {
+  getContact(): Observable<Contacts> {
     const routeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    const contact = this.contactsService.get(routeId);
-    return contact;
+    return this.contactsService.get(routeId);
   }
 
   navigateBack() {

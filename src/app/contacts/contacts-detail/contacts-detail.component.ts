@@ -12,11 +12,12 @@ export class ContactsDetailComponent implements OnInit {
   constructor(private contactsDetailService: ContactsDetailService) {}
 
   ngOnInit() {
-    const contact = this.contactsDetailService.getContact();
-    if (!contact) {
-      this.contactsDetailService.navigateBack();
-    }
-    this.contact = contact;
+    this.contactsDetailService.getContact().subscribe((contact: Contacts) => {
+      if (!contact) {
+        this.contactsDetailService.navigateBack();
+      }
+      this.contact = contact;
+    });
   }
 
   onBackClick() {
