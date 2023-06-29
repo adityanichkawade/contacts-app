@@ -14,7 +14,7 @@ import { ContactsFormComponent } from './contacts-form/contacts-form.component';
     ContactsFormComponent,
   ],
   providers: [ContactsService],
-  imports: [ContactsRoutingModule, CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ContactsRoutingModule],
   exports: [ContactsComponent],
 })
 export class ContactsModule {}

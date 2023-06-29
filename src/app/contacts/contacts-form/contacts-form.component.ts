@@ -21,26 +21,31 @@ export class ContactsFormComponent implements OnInit {
 
   ngOnInit() {
     this.contactsFormService.getRouteData().subscribe((value: any) => {
-      if (value['routeType'] === 'add') {
-        this.heading = 'Add Contact';
-      } else {
-        this.heading = 'Edit Contact';
-      }
+      this.setFormHeading(value['routeType']);
+      this.contactsFormService
+        .getContact()
+        .subscribe((contact: Contacts | undefined) => {
+          this.preloadForm(contact);
+        });
     });
+  }
 
-    this.contactsFormService
-      .getContact()
-      .subscribe((contact: Contacts | undefined) => {
-        if (contact) {
-          if (contact) {
-            this.contactId = contact.id;
-            this.contactsForm.patchValue({
-              name: contact.name,
-              phoneNo: contact.phoneNo,
-            });
-          }
-        }
+  setFormHeading(routeType: string) {
+    if (routeType === 'add') {
+      this.heading = 'Add Contact';
+    } else {
+      this.heading = 'Edit Contact';
+    }
+  }
+
+  preloadForm(contact: Contacts | undefined) {
+    if (contact) {
+      this.contactId = contact.id;
+      this.contactsForm.patchValue({
+        name: contact.name,
+        phoneNo: contact.phoneNo,
       });
+    }
   }
 
   onSubmit() {

@@ -1,31 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContactsListComponent } from './contacts-list/contacts-list.component';
-import { ContactsDetailComponent } from './contacts-detail/contacts-detail.component';
-import { ContactsFormComponent } from './contacts-form/contacts-form.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ContactsListComponent,
+    loadChildren: () =>
+      import('./contacts-list/contacts-list.module').then(
+        (m) => m.ContactsListModule
+      ),
   },
   {
-    path: 'detail/:id',
-    component: ContactsDetailComponent,
+    path: 'detail',
+    loadChildren: () =>
+      import('./contacts-detail/contacts-detail.module').then(
+        (m) => m.ContactsDetailModule
+      ),
   },
   {
-    path: 'edit/:id',
-    data: {
-      routeType: 'edit',
-    },
-    component: ContactsFormComponent,
-  },
-  {
-    path: 'add',
-    data: {
-      routeType: 'add',
-    },
-    component: ContactsFormComponent,
+    path: '',
+    loadChildren: () =>
+      import('./contacts-form/contacts-form.module').then(
+        (m) => m.ContactsFormModule
+      ),
   },
 ];
 
